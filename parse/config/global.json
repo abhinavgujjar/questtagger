@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "questtag"
+        }, 
+        "questtag": {
+            "applicationId": "VhSVXNkuGnXNaL5ZidhJ2Z84SGU0Broc3W0ARshg", 
+            "masterKey": "1DTq3qroshWkhD4Q7ZlEHGTV88gy8BfjbfDhZ7rD"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.19"
+    }
+}
