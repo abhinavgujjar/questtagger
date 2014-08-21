@@ -12,6 +12,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="css/timeline.css">
 
 	<script>if (/*@cc_on!@*/false && document.documentMode === 10) { document.documentElement.className+=' ie ie10'; }</script>
 
@@ -72,7 +74,9 @@
 											<a href="" class="label label-default label-sm" style="{margin-left:5px}" ng-click="addFilterTag(tag)">{{tag.key}}</a>
 										</span>
 										<span ng-show="item.editable">
-											<small><input ng-show="item.addMode" type="text" ng-enter="addTag(item, tag)" ng-model="tag" class="input-small" /></small>	
+											<small>
+												<input ng-show="item.addMode" type="text" ng-enter="addTag(item, tag)" ng-model="tag" class="input-small" />
+											</small>
 											<button ng-hide="item.addMode" class="btn btn-default btn-xs ghost tiny" ng-click="item.addMode=true">
 												<span class="glyphicon glyphicon-tag "></span>
 												tag
@@ -82,8 +86,18 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-2">
-								<span></span>
+							<div class="col-md-4">
+								<span ng-repeat="step in getWorkflow(item)">
+									<i class="text-warning fa fa-user fa-lg fa-fw"></i>
+									<i class="text-default fa fa-long-arrow-right fa-lg fa-fw"></i>
+								</span>
+								<i class="text-warning fa fa-circle-thin fa-lg fa-fw"></i>
+							</div>
+							<div class=" col-md-2">
+								<button class="btn btn-sm" ng-class="{'btn-success' : item.steps}" ng-click="open(item)">
+									<span class="glyphicon glyphicon-random"></span>
+									Workflow
+								</button>
 
 							</div>
 
@@ -100,10 +114,11 @@
 
 <!-- Global -->
 <script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-custom-tpls-0.10.0.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
 <script src="js/app.js"></script>
 <script src="js/directives.js"></script>
+<script src="js/workflowservice.js"></script>
 
 <!-- @ifdef DEBUG -->
 <script src="js/googleService.js"></script>

@@ -1,0 +1,38 @@
+<div class="modal-header">
+	<h3 class="modal-title">{{file.title}}</h3>
+</div>
+<div class="modal-body">
+	<div ng-repeat="step in steps">
+		<div class="row">
+			<div class="col-md-2"> <i class="fa fa-user fa-lg fa-fw"></i>
+			</div>
+			<div class="col-md-10">
+				<div class="input-group input-group-sm">{{step.person}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2"> <i class="fa fa-long-arrow-down fa-fw fa-lg"></i>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+			<i class="fa fa-user fa-lg fa-fw"></i>
+		</div>
+
+		<div class="col-md-10">
+			<div class="input-group input-group-sm">
+				<input type="text" class="form-control" ng-model="nextPerson" placeholder="enter name">
+				<span class="input-group-btn">
+					<button class="btn btn-default" ng-click="addStep(file, nextPerson)">
+						<i class="fa fa-plus fa-fw"></i>
+					</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary btn-sm" ng-click="ok()">OK</button>
+	<button class="btn btn-warning btn-sm" ng-click="cancel()">Cancel</button>
+</div>
