@@ -18,9 +18,11 @@ provides: [facebook]
     /*global gapi */
     'use strict';
 
-    var clientId = '335394801683-aase9ohca2cnjm7poonr5ke7cqp98e43.apps.googleusercontent.com';
+    var fields = "items(description,editable,iconLink,id,properties,title),nextPageToken";
+
+    var clientId = '335394801683-p18s56v2q0ghp25m1tbk2s3iagicog84.apps.googleusercontent.com';
     //var clientId = '335394801683-tnb7f91o5mv6puetisr9fimvppo24l2u.apps.googleusercontent.com';
-    var scopes = 'https://www.googleapis.com/auth/drive';
+    var scopes = 'https://www.googleapis.com/auth/drive profile email';
 
     // Module global loadDeferred
     var loadDeferred;
@@ -29,10 +31,35 @@ provides: [facebook]
     factory('goog', ['$q',
 
         function($q) {
-
+            var userProfile = {};
             var isSigndIn = false;
 
-            function getProfile() {
+            function retrieveAllFiles() {
+                var deferred = $q.defer();
+                var retrievePageOfFiles = function(request, result) {
+                    request.execute(function(resp) {
+                        result = result.concat(resp.items);
+                        var nextPageToken = resp.nextPageToken;
+                        if (nextPageToken) {
+                            request = gapi.client.drive.files.list({
+                                'pageToken': nextPageToken
+                            });
+                            retrievePageOfFiles(request, result);
+                        } else {
+                            deferred.resolve(result);
+                        }
+                    });
+                }
+
+                var initialRequest = gapi.client.drive.files.list({
+                    fields: fields
+                });
+                retrievePageOfFiles(initialRequest, []);
+
+                return deferred.promise;
+            }
+
+            function signIn() {
                 var gapi;
                 return loadDeferred.promise.then(function(_api) {
                     gapi = _api;
@@ -55,6 +82,48 @@ provides: [facebook]
 
                     return deferred.promise;
                 }).then(function(authResult) {
+
+
+                    var deferred = $q.defer();
+
+                    gapi.client.load('plus', 'v1', function() {
+                        if (authResult.access_token) {
+                            deferred.resolve(authResult);
+                        } else if (authResult.error) {
+                            deferred.reject(authResult.error);
+                        }
+                    });
+
+                    return deferred.promise;
+
+                }).then(function() {
+                    var deferred = $q.defer();
+
+                    var request = gapi.client.plus.people.get({
+                        'userId': 'me'
+                    });
+
+                    request.execute(function(profile) {
+
+                        if (profile.error) {
+                            deferred.reject(profile.error);
+                        }
+
+                        userProfile = profile;
+
+                        if (profile.emails) {
+                            angular.forEach(profile.emails, function(item) {
+                                if (item.type === 'account') {
+                                    userProfile.defaultEmail = item.value;
+                                }
+                            })
+                        }
+                        deferred.resolve(userProfile);
+
+                    });
+
+                    return deferred.promise;
+                }).then(function() {
                     var deferred = $q.defer();
 
                     gapi.client.load('drive', 'v2', function() {
@@ -63,25 +132,70 @@ provides: [facebook]
                     });
                     return deferred.promise;
 
-                }).then(function() {
-                    var deferred = $q.defer();
-
-                    var request = gapi.client.drive.files.list();
-
-                    request.execute(function(result) {
-
-                        deferred.resolve(result.items);
-
-                    });
-
-                    return deferred.promise;
                 });
             }
 
+            function search(filterTags) {
+                var deferred = $q.defer();
+
+                var query = '';
+                var first = true;
+                angular.forEach(filterTags, function(ftag) {
+                    if (!first) {
+                        query += ' or ';
+                    }
+
+                    query += "(properties has { key='" + ftag.key + "' and value='QTAG' and visibility='PUBLIC' })";
+
+                    first = false;
+                });
+
+                var request = gapi.client.drive.files.list({
+                    q: query
+                });
+
+                request.execute(function(result) {
+                    if (result.error) {
+                        deferred.reject(result.error);
+                    } else {
+                        deferred.resolve(result.items);
+                    }
+
+
+                });
+
+                return deferred.promise;
+            }
+
+            function insertProperty(gapi, fileId, key, value, visibility) {
+                var deferred = $q.defer();
+
+                var body = {
+                    'key': key,
+                    'value': value,
+                    'visibility': visibility
+                };
+
+                var request = gapi.client.drive.properties.insert({
+                    'fileId': fileId,
+                    'resource': body
+                });
+                request.execute(function(resp) {
+                    deferred.resolve(resp.result);
+                });
+
+                return deferred.promise;
+            }
+
             return {
-                getProfile: getProfile,
+                signIn: signIn,
                 ready: loadDeferred.promise,
-                name: 'google'
+                search: search,
+                insertProperty: insertProperty,
+                retrieveAllFiles: retrieveAllFiles,
+                getUserProfile: function() {
+                    return userProfile;
+                }
             };
         }
     ]).

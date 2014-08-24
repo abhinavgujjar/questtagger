@@ -7,23 +7,11 @@
 angular.module('quest', ['tjGoog',
 	'ui.bootstrap.tpls',
 	'ui.bootstrap.typeahead',
+	'ngResource',
 	'ui.bootstrap.modal'
 ]).controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfservice) {
-	$scope.files = [{
-		title: 'sdasd',
-		properties: [{
-			key: 'document',
-			value: 'QTAG'
-
-		}],
-		editable: true
-	}];
-
-	$scope.doSomething = function() {
-		alert('asd');
-	}
-
-	$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+	$scope.files = [];
+	var userProfile;
 
 	$scope.filterTags = [];
 
@@ -35,9 +23,35 @@ angular.module('quest', ['tjGoog',
 
 		$scope.filterTags.push(tag);
 
-		findFilesByTag();
+		//findFilesByTag();
 
 	}
+
+	var allFiles;
+
+	$scope.$watch('myTasks', function(newValue, oldValue) {
+		if (newValue != oldValue) {
+
+			if (newValue) {
+				var filteredFiles = [];
+				angular.forEach($scope.files, function(item) {
+					if (item.steps) {
+						angular.forEach(item.steps, function(step) {
+							if (step.person === userProfile.defaultEmail) {
+								filteredFiles.push(item);
+							}
+						});
+					}
+				});
+
+				allFiles = $scope.files;
+				$scope.files = filteredFiles;
+			} else {
+				$scope.files = allFiles;
+			}
+
+		}
+	})
 
 	$scope.removeFilter = function(tag) {
 		var index = $scope.filterTags.indexOf(tag);
@@ -45,47 +59,41 @@ angular.module('quest', ['tjGoog',
 			$scope.filterTags.splice(index, 1);
 		}
 
-		findFilesByTag();
+		//findFilesByTag();
 	}
 
 	function findFilesByTag() {
 
 		$scope.isLoading = true;
 
-
 		goog.ready.then(function(gapi) {
-			var query = '';
-			var first = true;
-			angular.forEach($scope.filterTags, function(ftag) {
-				if (!first) {
-					query += ' or ';
-				}
+			return goog.search($scope.filterTags);
+		}).then(function(items) {
 
-				query += "(properties has { key='" + ftag.key + "' and value='QTAG' and visibility='PUBLIC' })";
+			$scope.files = items;
+			$scope.isLoading = false;
 
-				first = false;
-			});
-
-			var request = gapi.client.drive.files.list({
-				q: query
-			});
-
-			request.execute(function(result) {
-				if (result.error) {
-					alert('shit happened');
-				} else {
-					$scope.$apply(function() {
-						$scope.files = result.items;
-						$scope.isLoading = false;
-
-					});
-				}
-
-
-			});
-
+			loadWf(items);
 
 		});
+	}
+
+	function loadWf(items) {
+
+		var promises = [];
+
+		angular.forEach(items, function(file) {
+			angular.forEach(file.properties, function(prop) {
+				if (prop.key === 'workflow') {
+					promises.push(wfservice.getWorkflow(file.id).then(function(steps) {
+						file.steps = steps;
+					}));
+				}
+			});
+
+		});
+
+		return $q.all(promises);
 	}
 
 
@@ -96,15 +104,24 @@ angular.module('quest', ['tjGoog',
 
 	$scope.login = function() {
 		$scope.isLoading = true;
-		goog.getProfile().then(function(profile) {
-			$scope.isLoading = false;
-			$scope.files = profile;
+		goog.signIn().then(function() {
+
+			userProfile = goog.getUserProfile();
+
+			goog.retrieveAllFiles().then(function(items) {
+				$scope.files = items;
+				loadWf(items).then(function() {
+					$scope.isLoading = false;
+
+				});
+			});
+
 		});
 	};
 
 	$scope.addTag = function(file, tag) {
 		goog.ready.then(function(gapi) {
-			insertProperty(gapi, file.id, tag, 'QTAG', 'PUBLIC').then(function(prop) {
+			goog.insertProperty(gapi, file.id, tag, 'QTAG', 'PUBLIC').then(function(prop) {
 				if (prop) {
 					file.properties = file.properties || [];
 					file.properties.push(prop);
@@ -114,28 +131,6 @@ angular.module('quest', ['tjGoog',
 		});
 	};
 
-	function insertProperty(gapi, fileId, key, value, visibility) {
-		var deferred = $q.defer();
-
-		var body = {
-			'key': key,
-			'value': value,
-			'visibility': visibility
-		};
-
-		var request = gapi.client.drive.properties.insert({
-			'fileId': fileId,
-			'resource': body
-		});
-		request.execute(function(resp) {
-			deferred.resolve(resp.result);
-		});
-
-		return deferred.promise;
-	}
-
-	$scope.items = ['item1'];
-
 
 	$scope.open = function(file) {
 
@@ -144,9 +139,6 @@ angular.module('quest', ['tjGoog',
 			controller: ModalInstanceCtrl,
 			size: 'sm',
 			resolve: {
-				items: function() {
-					return $scope.items;
-				},
 				file: function() {
 					return file;
 				}
@@ -154,11 +146,17 @@ angular.module('quest', ['tjGoog',
 		});
 
 		modalInstance.result.then(function(steps) {
-			insertProperty(gapi, file.id, 'workflow', angular.toJson(steps), 'PUBLIC')
+
+			goog.insertProperty(gapi, file.id, 'workflow', 'true', 'PUBLIC')
 				.then(function(prop) {
 					file.properties = file.properties || [];
 					file.properties.push(prop);
+
+					wfservice.saveSteps(file.id, steps);
+
 				});
+
+
 		}, function() {
 			console.log('Modal dismissed at: ' + new Date());
 		});
@@ -175,24 +173,36 @@ angular.module('quest', ['tjGoog',
 		return steps;
 	}
 
+	$scope.filterByTag = function(filterTags) {
+		return function(item) {
+			if (!filterTags || filterTags.length == 0) {
+				return true;
+			} else {
+				var match;
+				angular.forEach(filterTags, function(tag){
+					angular.forEach(item.properties, function(prop){
+						if ( prop.value === tag.value && prop.key === tag.key ){
+							match = true;
+						}
+					});
+				});
+
+				return match;
+
+			}
+		}
+	}
+
 
 
 });
 
 
-var ModalInstanceCtrl = function($scope, $modalInstance, items, file) {
-
-	$scope.items = items;
+var ModalInstanceCtrl = function($scope, $modalInstance, file) {
 
 	$scope.file = file;
 
-	$scope.steps = [];
-	angular.forEach(file.properties, function(prop) {
-		if (prop.key === 'workflow') {
-			$scope.steps = angular.fromJson(prop.value);
-		}
-	})
-
+	$scope.steps = file.steps;
 
 	$scope.addStep = function(file, nextPerson) {
 		if (!$scope.steps) {

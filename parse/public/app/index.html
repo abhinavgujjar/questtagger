@@ -13,7 +13,6 @@
 
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.css">
-	<link rel="stylesheet" type="text/css" href="css/timeline.css">
 
 	<script>if (/*@cc_on!@*/false && document.documentMode === 10) { document.documentElement.className+=' ie ie10'; }</script>
 
@@ -29,19 +28,45 @@
 	</style>
 
 </head>
-<body style="overflow-x:hidden">
-	<div class="container" ng-controller="maincontroller">
+<body ng-controller="maincontroller">
+	<div class="navbar navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Quest</a>
+		</div>
+		<div class="navbar-collapse collapse navbar-responsive-collapse">
+			<ul class="nav navbar-nav">
+				<li >
+					<a href="#">Tags</a>
+				</li>
+				<li>
+					<a href="#">My Tasks</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="" ng-click="login()" ng-disabled="!ready" >login</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="container" >
 
 		<!-- 		<input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
 		-->
 		<div >
 			<br/>
 			<div class="row" >
-				<div class="col-md-4">
-					<button ng-click="login()" ng-disabled="!ready" class="btn btn-danger">LOGIN TO GOOGLE</button>
+				<div class="col-md-3">
+					<input type="text" class="form-control input-sm" ng-model="searchTerm" placeholder="search by name"></div>
+									<div class="col-md-3">
+					<input type="checkbox" ng-model="myTasks"> My Tasks</div>
 
-				</div>
-				<div class="col-md-8">
+				<div class="col-md-6">
 					<div class="pull-left" style="{margin-right:5px}" ng-repeat="fTag in filterTags">
 						<span class="label label-success">{{fTag.key}}</span>
 						<span>
@@ -51,15 +76,20 @@
 					</div>
 				</div>
 			</div>
-			<br>
-			<br>
+			<hr/>
 			<div class="row" ng-show="isLoading">
-				<h2>hang on a moment. getting the files...</h2>
+				<div>
+					<h2> <i class="fa fa-circle-o-notch fa-spin"></i>
+						crunch crunch crunch. Stuff is happening. Here look at this puppy in the meanwhile
+					</h2>
+				</div>
+				<div>
+					<img src="http://i.imgur.com/M5berys.jpg"></div>
 			</div>
 			<div class="row"></div>
 			<div class="row" ng-show="!isLoading">
 				<div class="col-md-*">
-					<div ng-repeat="item in files">
+					<div ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags)">
 						<div class="row  well well-sm small">
 							<div class="col-md-6">
 								<div class="col-md-1">
@@ -86,12 +116,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-4">
-								<span ng-repeat="step in getWorkflow(item)">
-									<i class="text-warning fa fa-user fa-lg fa-fw"></i>
-									<i class="text-default fa fa-long-arrow-right fa-lg fa-fw"></i>
-								</span>
-								<i class="text-warning fa fa-circle-thin fa-lg fa-fw"></i>
+							<div class="col-md-4" >
+								<div ng-show="item.steps">
+									<span ng-repeat="step in item.steps"> <i class="text-warning fa fa-user fa-lg fa-fw"></i>
+										<i class="text-default fa fa-long-arrow-right fa-lg fa-fw"></i>
+									</span>
+									<i class="text-warning fa fa-circle-thin fa-lg fa-fw"></i>
+								</div>
 							</div>
 							<div class=" col-md-2">
 								<button class="btn btn-sm" ng-class="{'btn-success' : item.steps}" ng-click="open(item)">
@@ -114,6 +145,7 @@
 
 <!-- Global -->
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
 <script src="js/app.js"></script>
