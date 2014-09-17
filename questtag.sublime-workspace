@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"fil",
+				"filterTags"
+			],
+			[
+				"filter",
+				"filterTags"
+			],
+			[
+				"newV",
+				"newValue"
+			],
+			[
+				"all",
+				"allFiles"
+			],
+			[
+				"pro",
+				"promises"
+			],
+			[
+				"re",
+				"resolve"
+			],
+			[
+				"user",
+				"userProfile"
+			],
+			[
 				"ti",
 				"title"
 			],
@@ -58,18 +86,6 @@
 			[
 				"com",
 				"command"
-			],
-			[
-				"pro",
-				"promise"
-			],
-			[
-				"fil",
-				"fileId"
-			],
-			[
-				"re",
-				"return"
 			],
 			[
 				"e",
@@ -282,10 +298,6 @@
 			[
 				"con",
 				"connectionsQuery"
-			],
-			[
-				"user",
-				"userId"
 			],
 			[
 				"prom",
@@ -502,18 +514,6 @@
 			[
 				"ng-",
 				"ng-bind	AngularJS"
-			],
-			[
-				"font",
-				"font-size"
-			],
-			[
-				"ng",
-				"ng-bind	AngularJS"
-			],
-			[
-				"fo",
-				"forwards"
 			]
 		]
 	},
@@ -523,19 +523,19 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 307.0,
+		"height": 147.0,
 		"selected_items":
 		[
-			[
-				"for",
-				"Format: Javascript"
-			],
 			[
 				"form",
 				"Format: Javascript"
 			],
 			[
 				"fo",
+				"Format: Javascript"
+			],
+			[
+				"for",
 				"Format: Javascript"
 			],
 			[
@@ -665,8 +665,18 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/Users/abhinavgujjar/quest"
+	],
 	"file_history":
 	[
+		"/Users/abhinavgujjar/quest/parse/public/app/js/googleService.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/app.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/index.html",
+		"/Users/abhinavgujjar/talentjam/talentjam/app/js/services/googService.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/index.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/grunt/bs-lessdoc-parser.js",
 		"/Users/abhinavgujjar/hacks/cmdthenet/parse/cloud/main.js",
 		"/Users/abhinavgujjar/hacks/cmdthenet/parse/public/bower_components/bootstrap/less/forms.less",
 		"/Users/abhinavgujjar/hacks/jquery.terminal-master/Makefile",
@@ -686,16 +696,12 @@
 		"/Users/abhinavgujjar/hacks/cmdthenet/main.js",
 		"/Users/abhinavgujjar/hacks/jquery.terminal-master/response.json",
 		"/Users/abhinavgujjar/hacks/jquery.terminal-master/examples/json-rpc-service-demo.php",
-		"/Users/abhinavgujjar/quest/parse/public/app/js/index.html",
 		"/Users/abhinavgujjar/quest/parse/public/app/myModalContent.html",
 		"/Users/abhinavgujjar/quest/parse/public/app/css/timeline.css",
 		"/Users/abhinavgujjar/quest/parse/cloud/main.js",
 		"/Users/abhinavgujjar/quest/parse/config/global.json",
-		"/Users/abhinavgujjar/quest/parse/public/app/js/googleService.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/js/directives.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/js/workflowservice.js",
-		"/Users/abhinavgujjar/quest/parse/public/app/js/app.js",
-		"/Users/abhinavgujjar/quest/parse/public/app/index.html",
 		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/angular-bootstrap/ui-bootstrap.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/js/tag/controllers.js",
@@ -726,7 +732,6 @@
 		"/Users/abhinavgujjar/talentjam/talentjam/app/js/services/jamProvider.js",
 		"/Users/abhinavgujjar/talentjam/talentjam/Parse/cloud/user.js",
 		"/Users/abhinavgujjar/talentjam/talentjam/app/js/linkedIn.js",
-		"/Users/abhinavgujjar/talentjam/talentjam/app/js/services/googService.js",
 		"/Users/abhinavgujjar/talentjam/talentjam/app/js/app.js",
 		"/Users/abhinavgujjar/talentjam/talentjam/app/partials/login.html",
 		"/Users/abhinavgujjar/talentjam/talentjam/app/bower_components/fontawesome/css/font-awesome.css",
@@ -793,12 +798,11 @@
 		"/E/talentjam/talentjam/app/bower_components/bootstrap/less/list-group.less",
 		"/E/talentjam/talentjam/app/js/services.js",
 		"/E/talentjam/talentjam/app/assets/components/modules/admin/maps/vector/assets/custom/maps-vector.usa-unemployment.init.js",
-		"/E/talentjam/talentjam/app/assets/components/modules/admin/maps/vector/assets/lib/maps/jquery-jvectormap-us-aea-en.js",
-		"/E/talentjam/talentjam/app/assets/components/modules/admin/maps/vector/assets/lib/maps/jquery-jvectormap-world-mill-en.js"
+		"/E/talentjam/talentjam/app/assets/components/modules/admin/maps/vector/assets/lib/maps/jquery-jvectormap-us-aea-en.js"
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -840,6 +844,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"findFilesByTag",
+			"searc",
+			"loadWf",
 			"term",
 			"folderCache",
 			"setDirectory",
@@ -964,10 +971,7 @@
 			"'));",
 			"ng-switch-on",
 			"parseHeaders",
-			";\n",
-			"mainduck",
-			"firstName",
-			"Parse.User.current"
+			";\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1090,6 +1094,10 @@
 		"selected_items":
 		[
 			[
+				"go",
+				"parse/public/app/js/googleService.js"
+			],
+			[
 				"g",
 				"cmdthenet/parse/public/scripts/gdrive.js"
 			],
@@ -1124,10 +1132,6 @@
 			[
 				"mymo",
 				"parse/public/app/myModalContent.html"
-			],
-			[
-				"go",
-				"parse/public/app/js/googleService.js"
 			],
 			[
 				"tim",
@@ -1620,13 +1624,14 @@
 		],
 		"width": 392.0
 	},
+	"selected_group": 0,
 	"settings":
 	{
 	},
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 224.0,
 	"status_bar_visible": true,
 	"template_settings":

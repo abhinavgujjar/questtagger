@@ -9,9 +9,12 @@ angular.module('quest', ['tjGoog',
 	'ui.bootstrap.typeahead',
 	'ngResource',
 	'ui.bootstrap.modal'
-]).controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfservice) {
+]).controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfservice, landingService) {
 	$scope.files = [];
 	var userProfile;
+
+
+	$scope.tagFiles = landingService.getTagFiles();
 
 	$scope.filterTags = [];
 
