@@ -1,0 +1,19 @@
+<div>
+	<div class="row">
+		<input type="text" ng-model="searchTerm" class="form-control">
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="col-md-2" ng-repeat="tag in tagFiles">
+			<a ui-sref="results">
+			<div class="panel panel-default" >
+				<div class="panel-body">
+					<div><strong>{{tag.count}}</strong></div>
+					<div><em>{{tag.name}}</em></div>
+				</div>
+			</div>
+		</a>
+		</div>
+	</div>
+
+</div>

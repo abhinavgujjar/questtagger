@@ -4,12 +4,34 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('quest', ['tjGoog',
+var app = angular.module('quest', ['tjGoog',
 	'ui.bootstrap.tpls',
 	'ui.bootstrap.typeahead',
+	'ui.bootstrap.tabs',
 	'ngResource',
-	'ui.bootstrap.modal'
-]).controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfservice, landingService) {
+	'ui.bootstrap.modal',
+	'ui.router',
+	'ngAnimate'
+]);
+
+app.config(function($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider.otherwise('/landing');
+
+	$stateProvider.state('landing', {
+		url: '/landing',
+		templateUrl: 'partials/landing.html'
+	});
+
+	$stateProvider.state('results', {
+		url: '/results',
+		templateUrl: 'partials/results.html'
+	});
+
+
+});
+
+
+app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfservice, landingService) {
 	$scope.files = [];
 	var userProfile;
 
@@ -17,6 +39,8 @@ angular.module('quest', ['tjGoog',
 	$scope.tagFiles = landingService.getTagFiles();
 
 	$scope.filterTags = [];
+
+	$scope.availableTags = ['education', 'learning', 'research', 'technology', 'employability', 'youth', 'english', 'verbal']
 
 	goog.ready.then(function() {
 		$scope.ready = true;
@@ -29,6 +53,22 @@ angular.module('quest', ['tjGoog',
 		//findFilesByTag();
 
 	}
+
+	$scope.selection = [];
+
+	$scope.toggleSelection = function toggleSelection(file) {
+		var idx = $scope.selection.indexOf(file);
+
+		// is currently selected
+		if (idx > -1) {
+			$scope.selection.splice(idx, 1);
+		}
+
+		// is newly selected
+		else {
+			$scope.selection.push(file);
+		}
+	};
 
 	var allFiles;
 
@@ -76,7 +116,7 @@ angular.module('quest', ['tjGoog',
 			$scope.files = items;
 			$scope.isLoading = false;
 
-			loadWf(items);
+			//loadWf(items);
 
 		});
 	}
@@ -106,20 +146,28 @@ angular.module('quest', ['tjGoog',
 	};
 
 	$scope.login = function() {
-		$scope.isLoading = true;
-		goog.signIn().then(function() {
-
-			userProfile = goog.getUserProfile();
-
-			goog.retrieveAllFiles().then(function(items) {
-				$scope.files = items;
-				loadWf(items).then(function() {
-					$scope.isLoading = false;
-
-				});
-			});
-
+		goog.retrieveAllFiles().then(function(items) {
+			$scope.files = items;
+			$scope.isLoading = false;
 		});
+
+		// $scope.isLoading = true;
+
+
+		// goog.signIn().then(function() {
+
+		// 	userProfile = goog.getUserProfile();
+
+		// 	goog.retrieveAllFiles().then(function(items) {
+		// 		$scope.files = items;
+		// 		$scope.isLoading = false;
+		// 		// loadWf(items).then(function() {
+		// 		// 	$scope.isLoading = false;
+
+		// 		// });
+		// 	});
+
+		// });
 	};
 
 	$scope.addTag = function(file, tag) {
@@ -182,9 +230,9 @@ angular.module('quest', ['tjGoog',
 				return true;
 			} else {
 				var match;
-				angular.forEach(filterTags, function(tag){
-					angular.forEach(item.properties, function(prop){
-						if ( prop.value === tag.value && prop.key === tag.key ){
+				angular.forEach(filterTags, function(tag) {
+					angular.forEach(item.properties, function(prop) {
+						if (prop.value === tag.value && prop.key === tag.key) {
 							match = true;
 						}
 					});

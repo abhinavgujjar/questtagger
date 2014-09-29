@@ -1,0 +1,87 @@
+<div >
+	<br/>
+	<div class="row" >
+		<div class="col-md-3">
+			<input type="text" class="form-control input-sm" ng-model="searchTerm" placeholder="search by name"></div>
+		<div class="col-md-3">
+			<input type="checkbox" ng-model="myTasks">My Tasks</div>
+
+		<div class="col-md-6">
+			<div class="pull-left" style="{margin-right:5px}" ng-repeat="fTag in filterTags">
+				<span class="label label-success">{{fTag.key}}</span>
+				<span>
+					<button type="button" class="btn btn-xs" ng-click="removeFilter(fTag)">x</button>
+				</span>
+				&nbsp;
+			</div>
+		</div>
+	</div>
+	<hr/>
+	<div class="row" ng-show="isLoading">
+		<div>
+			<h2> <i class="fa fa-circle-o-notch fa-spin"></i>
+				crunch crunch crunch. Stuff is happening. Here look at this puppy in the meanwhile
+			</h2>
+		</div>
+		<div>
+			<img src="http://i.imgur.com/M5berys.jpg"></div>
+	</div>
+	<div class="row" ng-show="!isLoading">
+		<div class="col-md-9">
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<td style="width:5%"></td>
+						<td style="width:5%"></td>
+						<td style="width:40%"></td>
+						<td style="width:20%"></td>
+						<td style="width:30%"></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags)" ng-class="{superactive: selectedFiles[item.id]}">
+						<td>
+							<input type="checkbox" ng-model="selectedFiles[item.id]" ></td>
+						<td>
+							<img ng-src="{{item.iconLink}}"></td>
+						<td>
+							<a ng-href="{{item.alternateLink}}" target="_blank" ng-click="selectFile(item)">{{item.title}}</a>
+						</td>
+						<td>me</td>
+						<td>
+							<span ng-repeat="tag in item.properties | filter : { value : 'QTAG' }">
+								<a href="" class="label label-default label-sm" style="{margin-left:5px}" ng-click="addFilterTag(tag)">{{tag.key}}</a>
+							</span>
+							<span ng-show="item.editable">
+								<small>
+									<input ng-show="item.addMode" type="text" ng-enter="addTag(item, tag)" ng-model="tag" class="input-small" />
+								</small>
+								<button ng-hide="item.addMode" class="btn btn-default btn-xs ghost tiny" ng-click="item.addMode=true">
+									<span class="glyphicon glyphicon-tag "></span>
+									tag
+								</button>
+							</span>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-3">
+			<div class="well well-lg">tags</div>
+			<div >
+				<!-- <span ng-repeat="tag in availableTags" class="col-md-8 text-small text-muted label label-info">
+						{{tag}}
+					
+				</span> -->
+			</div>
+			<div >
+				<span ng-repeat="tag in availableTags" class="">
+				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				
+						<button class="btn btn-default btn-xs">{{tag}}</button>
+					
+				</span>
+			</div>
+		</div>
+	</div>
