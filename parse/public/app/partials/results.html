@@ -3,63 +3,54 @@
 	<div class="row" >
 		<div class="col-md-3">
 			<input type="text" class="form-control input-sm" ng-model="searchTerm" placeholder="search by name"></div>
-		<div class="col-md-3">
-			<input type="checkbox" ng-model="myTasks">My Tasks</div>
-
 		<div class="col-md-6">
-			<div class="pull-left" style="{margin-right:5px}" ng-repeat="fTag in filterTags">
-				<span class="label label-success">{{fTag.key}}</span>
-				<span>
-					<button type="button" class="btn btn-xs" ng-click="removeFilter(fTag)">x</button>
-				</span>
-				&nbsp;
+
+			<div class="well well-sm">
+				<span >By Tag:</span>
+				<div class="pull-left" style="{margin-right:5px}" ng-repeat="fTag in filterTags">
+					<span class="label label-success">{{fTag.key}}</span>
+					<span>
+						<button type="button" class="btn btn-xs" ng-click="removeFilter(fTag)">x</button>
+					</span>
+					&nbsp;
+				</div>
 			</div>
 		</div>
 	</div>
-	<hr/>
-	<div class="row" ng-show="isLoading">
-		<div>
-			<h2> <i class="fa fa-circle-o-notch fa-spin"></i>
-				crunch crunch crunch. Stuff is happening. Here look at this puppy in the meanwhile
-			</h2>
-		</div>
-		<div>
-			<img src="http://i.imgur.com/M5berys.jpg"></div>
-	</div>
 	<div class="row" ng-show="!isLoading">
-		<div class="col-md-9">
-			<table class="table table-condensed">
+		<div  ng-class="{'col-md-9' : selectedFiles.length >
+			0, 'col-md-12' : selectedFiles.length === 0 }">
+			<div class="row text-center">
+				<pagination total-items="(files | filter : { title : searchTerm } | filter : filterByTag(filterTags)).length" items-per-page="itemsPerPage" max-size="5" ng-model="page" ng-change="pageChanged()"></pagination>
+			</div>
+
+			<table class="table">
 				<thead>
 					<tr>
-						<td style="width:5%"></td>
-						<td style="width:5%"></td>
-						<td style="width:40%"></td>
+						<td style="width:2%"></td>
+						<td style="width:2%"></td>
+						<td style="width:55%"></td>
 						<td style="width:20%"></td>
-						<td style="width:30%"></td>
+						<td style="width:20%"></td>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags)" ng-class="{superactive: selectedFiles[item.id]}">
+					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags) | offset : (page - 1) * itemsPerPage | limitTo : itemsPerPage" ng-class="{superactive: selected}">
 						<td>
-							<input type="checkbox" ng-model="selectedFiles[item.id]" ></td>
+							<input ng-show="item.editable" type="checkbox" ng-model="selected" ng-change="toggleFile(item)"></td>
 						<td>
 							<img ng-src="{{item.iconLink}}"></td>
 						<td>
-							<a ng-href="{{item.alternateLink}}" target="_blank" ng-click="selectFile(item)">{{item.title}}</a>
+							<a ng-href="{{item.defaultOpenWithLink || item.alternateLink}}" target="_blank" >{{item.title}}</a>
 						</td>
-						<td>me</td>
+						<td>
+							<span ng-repeat="owner in item.owners ">
+								<span class="text-muted" style="{margin-left:5px}" >{{owner.displayName}}</span>
+							</span>
+						</td>
 						<td>
 							<span ng-repeat="tag in item.properties | filter : { value : 'QTAG' }">
-								<a href="" class="label label-default label-sm" style="{margin-left:5px}" ng-click="addFilterTag(tag)">{{tag.key}}</a>
-							</span>
-							<span ng-show="item.editable">
-								<small>
-									<input ng-show="item.addMode" type="text" ng-enter="addTag(item, tag)" ng-model="tag" class="input-small" />
-								</small>
-								<button ng-hide="item.addMode" class="btn btn-default btn-xs ghost tiny" ng-click="item.addMode=true">
-									<span class="glyphicon glyphicon-tag "></span>
-									tag
-								</button>
+								<a href="" class="label label-primary label-sm" style="{margin-left:5px}" ng-click="addFilterTag(tag.key)">{{tag.key}}</a>
 							</span>
 
 						</td>
@@ -67,21 +58,38 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-3">
-			<div class="well well-lg">tags</div>
-			<div >
-				<!-- <span ng-repeat="tag in availableTags" class="col-md-8 text-small text-muted label label-info">
-						{{tag}}
-					
-				</span> -->
-			</div>
-			<div >
-				<span ng-repeat="tag in availableTags" class="">
-				<button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				
-						<button class="btn btn-default btn-xs">{{tag}}</button>
-					
-				</span>
+		<div class="col-md-3  well" ng-show="selectedFiles.length >
+			0">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<span ng-repeat="tag in activeTags" style="display:inline-block">
+								<span class="label label-success">
+
+									<a href="" class="text-warning" ng-click="removeTag(tag)">
+										<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+									</a>
+									&nbsp;&nbsp;{{tag}}
+								</span>
+							</span>
+
+						</div>
+					</div>
+					<span ng-repeat="tag in availableTags"  style="display:inline-block">
+
+						<span class="label label-info">
+
+							<a href="" class="text-warning" ng-click="addTag(tag)">
+								<span class="glyphicon glyphicon-plus glyphicon-white"></span>
+							</a>
+							&nbsp;&nbsp;{{tag}}
+						</span>
+
+					</span>
+
+				</div>
 			</div>
 		</div>
 	</div>
+</div>

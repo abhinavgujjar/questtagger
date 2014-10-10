@@ -30,45 +30,35 @@
 	</style>
 
 </head>
-<body ng-controller="maincontroller">
-	<div class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Quest</a>
+<body ng-controller="maincontroller" >
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Q.A</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+<!-- 					<li>
+						<a href="#">
+							Untagged files
+							<span class="badge">42</span>
+						</a>
+					</li>
+ --><!-- 					<li>
+						<a href="" ng-click="login()">Login</a>
+					</li>
+ -->				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
 		</div>
-		<div class="navbar-collapse collapse navbar-responsive-collapse">
-			<ul class="nav navbar-nav">
-				<li >
-				<a ui-sref="results">tags</a>
-				</li>
-				<li>
-					<a href="#">My Tasks</a>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="" ng-click="login()" ng-disabled="!ready" >login</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+		<!-- /.container-fluid -->
+	</nav>
 	<div class="container-fluid" >
 
-		<div class="col-md-2">
-			<ul class="list-group">
-				<li class="list-group-item">Cras justo odio</li>
-				<li class="list-group-item">Dapibus ac facilisis in</li>
-				<li class="list-group-item">Morbi leo risus</li>
-				<li class="list-group-item">Porta ac consectetur ac</li>
-				<li class="list-group-item">Vestibulum at eros</li>
-			</ul>
-
-		</div>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<div ui-view></div>
 		</div>
 
@@ -80,8 +70,12 @@
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/underscore/underscore-min.js"></script>
 
 	<script src="js/app.js"></script>
+	<script src="js/loginController.js"></script>
+	<script src="js/mainController.js"></script>
+	<script src="js/searchController.js"></script>
 	<script src="js/directives.js"></script>
 	<script src="js/workflowservice.js"></script>
 	<script src="js/landingService.js"></script>
