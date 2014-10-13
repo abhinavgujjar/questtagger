@@ -3,5 +3,5 @@
 	<p>
 		<button class="btn btn-primary btn-lg" ng-click="login()" ng-disabled="!ready">Login</button>
 	</p>
-	<h2 ng-show="isLoading || !ready"><i class="fa fa-spinner fa-spin"></i>  Please wait... loading files: <span>{{fileCount}}</span></h2>
+	<h2 ng-show="isLoading || !ready"><i class="fa fa-spinner fa-spin"></i>  Please wait... loading files: <span>{{fileCount || 0}}</span></h2>
 </div>

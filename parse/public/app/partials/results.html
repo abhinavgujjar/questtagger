@@ -21,7 +21,7 @@
 		<div  ng-class="{'col-md-9' : selectedFiles.length >
 			0, 'col-md-12' : selectedFiles.length === 0 }">
 			<div class="row text-center">
-				<pagination total-items="(files | filter : { title : searchTerm } | filter : filterByTag(filterTags)).length" items-per-page="itemsPerPage" max-size="5" ng-model="page" ng-change="pageChanged()"></pagination>
+				<pagination total-items="(files | filter : { title : searchTerm } | filter : filterByTag(filterTags)).length" items-per-page="itemsPerPage" class="pagination-sm"  max-size="10" ng-model="page" ng-change="pageChanged()"></pagination>
 			</div>
 
 			<table class="table">
@@ -35,9 +35,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags) | offset : (page - 1) * itemsPerPage | limitTo : itemsPerPage" ng-class="{superactive: selected}">
+					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags) | offset : (page - 1) * itemsPerPage | limitTo : itemsPerPage" ng-class="{superactive: checkedFiles[item.id]}">
 						<td>
-							<input ng-show="item.editable" type="checkbox" ng-model="selected" ng-change="toggleFile(item)"></td>
+							<input ng-show="item.editable" type="checkbox" ng-model="checkedFiles[item.id]" ng-change="toggleFile(item)"></td>
 						<td>
 							<img ng-src="{{item.iconLink}}"></td>
 						<td>
@@ -51,6 +51,9 @@
 						<td>
 							<span ng-repeat="tag in item.properties | filter : { value : 'QTAG' }">
 								<a href="" class="label label-primary label-sm" style="{margin-left:5px}" ng-click="addFilterTag(tag.key)">{{tag.key}}</a>
+							</span>
+							&nbsp;
+							<span ng-show="item.modding"> <i class="fa fa-spinner fa-spin"></i>
 							</span>
 
 						</td>
@@ -76,17 +79,53 @@
 
 						</div>
 					</div>
-					<span ng-repeat="tag in availableTags"  style="display:inline-block">
+					<span class="text-sm text-muted">Node</span>
+					<br/>
+						<span ng-repeat="tag in availableTags"  style="display:inline-block">
 
-						<span class="label label-info">
+							<span class="label label-default">
 
-							<a href="" class="text-warning" ng-click="addTag(tag)">
-								<span class="glyphicon glyphicon-plus glyphicon-white"></span>
-							</a>
-							&nbsp;&nbsp;{{tag}}
+								<a href="" class="text-warning" ng-click="addTag(tag)">
+									<span class="glyphicon glyphicon-plus glyphicon-white"></span>
+								</a>
+								&nbsp;&nbsp;{{tag}}
+							</span>
+
 						</span>
+					<br/>
+					<br/>
+					<span class="text-small text-muted">Project</span>
+					<br/>
+					<div>
+						<span ng-repeat="tag in availableProjectTags"  style="display:inline-block">
 
-					</span>
+							<span class="label label-default">
+
+								<a href="" class="text-warning" ng-click="addTag(tag)">
+									<span class="glyphicon glyphicon-plus glyphicon-white"></span>
+								</a>
+								&nbsp;&nbsp;{{tag}}
+							</span>
+
+						</span>
+					</div>
+					<br/>
+					<br/>
+					<span class="text-small text-muted">Function</span>
+					<br/>
+					<div>
+						<span ng-repeat="tag in availableFunctionTags"  style="display:inline-block">
+
+							<span class="label label-default">
+
+								<a href="" class="text-warning" ng-click="addTag(tag)">
+									<span class="glyphicon glyphicon-plus glyphicon-white"></span>
+								</a>
+								&nbsp;&nbsp;{{tag}}
+							</span>
+
+						</span>
+					</div>
 
 				</div>
 			</div>

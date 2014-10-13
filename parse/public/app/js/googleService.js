@@ -20,8 +20,8 @@ provides: [facebook]
 
     var fields = "items(description,editable,iconLink,id,properties,title,defaultOpenWithLink,alternateLink, owners(displayName,picture)),nextPageToken";
 
-    var clientId = '335394801683-p18s56v2q0ghp25m1tbk2s3iagicog84.apps.googleusercontent.com';
-    //var clientId = '335394801683-tnb7f91o5mv6puetisr9fimvppo24l2u.apps.googleusercontent.com';
+    //var clientId = '335394801683-p18s56v2q0ghp25m1tbk2s3iagicog84.apps.googleusercontent.com';
+    var clientId = '335394801683-tnb7f91o5mv6puetisr9fimvppo24l2u.apps.googleusercontent.com';
     var scopes = 'https://www.googleapis.com/auth/drive profile email https://www.googleapis.com/auth/drive.apps.readonly https://www.googleapis.com/auth/drive.readonly';
 
     // Module global loadDeferred
@@ -1295,7 +1295,8 @@ provides: [facebook]
                             if (nextPageToken) {
                                 request = gapi.client.drive.files.list({
                                     'pageToken': nextPageToken,
-                                    fields: fields
+                                    fields: fields,
+                                    maxResults: 500
                                 });
                                 retrievePageOfFiles(request, result);
                             }
@@ -1304,7 +1305,8 @@ provides: [facebook]
                 }
 
                 var initialRequest = gapi.client.drive.files.list({
-                    fields: fields
+                    fields: fields,
+                    maxResults: 500
                 });
                 retrievePageOfFiles(initialRequest, []);
 

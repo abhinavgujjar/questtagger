@@ -13,6 +13,8 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 	$scope.page = 1;
 	$scope.itemsPerPage = 30;
 
+	$scope.checkedFiles = {}
+
 
 
 	$scope.pageChanged = function() {
@@ -23,21 +25,33 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 
 		_.each($scope.selectedFiles, function(file) {
 
-			goog.ready.then(function(gapi) {
-				goog.insertProperty(gapi, file.id, tag, 'QTAG', 'PUBLIC').then(function(prop) {
-					if (prop) {
-						file.properties = file.properties || [];
-						file.properties.push(prop);
-						file.addMode = false;
-					}
-
-					refreshActiveTags();
-				});
+			var target = _.findWhere(file.properties, {
+				value: 'QTAG',
+				key: tag
 			});
 
+			if (!target) {
+
+				goog.ready.then(function(gapi) {
+
+					file.modding =true;
+
+					goog.insertProperty(gapi, file.id, tag, 'QTAG', 'PUBLIC').then(function(prop) {
+						if (prop) {
+							file.properties = file.properties || [];
+							file.properties.push(prop);
+							file.addMode = false;
+						}
+
+						file.modding = false;
+
+						refreshActiveTags();
+					});
+				});
+			}
 		});
 
-		
+
 
 	}
 
@@ -65,10 +79,12 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 
 		});
 
-		
+
 	}
 
-	$scope.availableTags = ['education', 'learning', 'research', 'technology', 'employability', 'youth', 'english', 'verbal']
+	$scope.availableTags = ['education', 'employability', 'Resource', 'HID'];
+	$scope.availableFunctionTags = ['R&D', 'Training', 'CPK', 'M&E', 'IT', 'Finance & Admin'];
+	$scope.availableProjectTags = ['S2S', 'Equip_Youth', 'Youth_Spark', 'Anandshala', 'Videoshala', 'Lifeline', 'English', 'Master_coach', 'Navigator', 'Enrichment','Career_Development', 'Build_your_business', 'Big_picture', 'professional_pathways', 'partnership_development', 'branding_and_communication']
 
 
 	$scope.addFilterTag = function(tag) {

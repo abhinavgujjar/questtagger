@@ -16,7 +16,7 @@ var app = angular.module('quest', ['tjGoog',
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise('/landing');
+	$urlRouterProvider.otherwise('/home');
 
 	$stateProvider.state('landing', {
 		url: '/landing',
