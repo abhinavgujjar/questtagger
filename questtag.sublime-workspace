@@ -4,6 +4,62 @@
 		"selected_items":
 		[
 			[
+				"loa",
+				"isLoading"
+			],
+			[
+				"on",
+				"onclick	Attr"
+			],
+			[
+				"logi",
+				"loginController"
+			],
+			[
+				"con",
+				"controller	AngularJS"
+			],
+			[
+				"file",
+				"fileId"
+			],
+			[
+				"fiel",
+				"files"
+			],
+			[
+				"re",
+				"ready"
+			],
+			[
+				"all",
+				"allProps"
+			],
+			[
+				"selc",
+				"selectedFiles"
+			],
+			[
+				"tag",
+				"tagNames"
+			],
+			[
+				"inde",
+				"indexOf"
+			],
+			[
+				"av",
+				"activeTags"
+			],
+			[
+				"active",
+				"activeTags"
+			],
+			[
+				"selected",
+				"selectedFiles"
+			],
+			[
 				"fil",
 				"filterTags"
 			],
@@ -16,16 +72,8 @@
 				"newValue"
 			],
 			[
-				"all",
-				"allFiles"
-			],
-			[
 				"pro",
 				"promises"
-			],
-			[
-				"re",
-				"resolve"
 			],
 			[
 				"user",
@@ -296,10 +344,6 @@
 				"Query"
 			],
 			[
-				"con",
-				"connectionsQuery"
-			],
-			[
 				"prom",
 				"promise"
 			],
@@ -470,50 +514,6 @@
 			[
 				"$root",
 				"$rootScope	AngularJS(DI)"
-			],
-			[
-				"objec",
-				"objectId"
-			],
-			[
-				"moda",
-				"modalInstance"
-			],
-			[
-				"resul",
-				"results"
-			],
-			[
-				"obj",
-				"objectId"
-			],
-			[
-				"inve",
-				"invitesProvider"
-			],
-			[
-				"em",
-				"emailInvitesRef"
-			],
-			[
-				"$pro",
-				"$promise"
-			],
-			[
-				"tot",
-				"totalShares"
-			],
-			[
-				"fbS",
-				"fbShare"
-			],
-			[
-				"$r",
-				"$rootScope	AngularJS"
-			],
-			[
-				"ng-",
-				"ng-bind	AngularJS"
 			]
 		]
 	},
@@ -523,19 +523,23 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 147.0,
+		"height": 287.0,
 		"selected_items":
 		[
+			[
+				"for",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"FOR",
+				"Format: Javascript"
+			],
 			[
 				"form",
 				"Format: Javascript"
 			],
 			[
 				"fo",
-				"Format: Javascript"
-			],
-			[
-				"for",
 				"Format: Javascript"
 			],
 			[
@@ -647,7 +651,7 @@
 				"Indentation: Reindent Lines"
 			]
 		],
-		"width": 530.0
+		"width": 575.0
 	},
 	"console":
 	{
@@ -667,13 +671,42 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/abhinavgujjar/quest"
+		"/Users/abhinavgujjar/quest",
+		"/Users/abhinavgujjar/quest/parse",
+		"/Users/abhinavgujjar/quest/parse/public",
+		"/Users/abhinavgujjar/quest/parse/public/app",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/underscore",
+		"/Users/abhinavgujjar/quest/parse/public/app/css",
+		"/Users/abhinavgujjar/quest/parse/public/app/js",
+		"/Users/abhinavgujjar/quest/parse/public/app/partials"
 	],
 	"file_history":
 	[
-		"/Users/abhinavgujjar/quest/parse/public/app/js/googleService.js",
-		"/Users/abhinavgujjar/quest/parse/public/app/js/app.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/index.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/googleService.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/loginController.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/css/app.css",
+		"/Users/abhinavgujjar/quest/parse/public/app/partials/landing.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/searchController.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/mainController.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/partials/login.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/partials/results.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/app.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/less/mixins/alerts.less",
+		"/Users/abhinavgujjar/quest/parse/public/app/myModalContent.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/less/list-group.less",
+		"/Users/abhinavgujjar/quest/parse/cloud/main.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/less/mixins/hide-text.less",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/jquery/src/var/hasOwn.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/angular-ui-router/CHANGELOG.md",
+		"/Users/abhinavgujjar/quest/parse/public/index.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/test.html",
+		"/Users/abhinavgujjar/quest/parse/public/app/js/fileService.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/jquery/src/offset.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/jquery/src/selector-native.js",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/less/mixins/nav-divider.less",
+		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/less/responsive-embed.less",
 		"/Users/abhinavgujjar/talentjam/talentjam/app/js/services/googService.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/js/index.html",
 		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/grunt/bs-lessdoc-parser.js",
@@ -696,9 +729,7 @@
 		"/Users/abhinavgujjar/hacks/cmdthenet/main.js",
 		"/Users/abhinavgujjar/hacks/jquery.terminal-master/response.json",
 		"/Users/abhinavgujjar/hacks/jquery.terminal-master/examples/json-rpc-service-demo.php",
-		"/Users/abhinavgujjar/quest/parse/public/app/myModalContent.html",
 		"/Users/abhinavgujjar/quest/parse/public/app/css/timeline.css",
-		"/Users/abhinavgujjar/quest/parse/cloud/main.js",
 		"/Users/abhinavgujjar/quest/parse/config/global.json",
 		"/Users/abhinavgujjar/quest/parse/public/app/js/directives.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/js/workflowservice.js",
@@ -707,7 +738,6 @@
 		"/Users/abhinavgujjar/quest/parse/public/app/js/tag/controllers.js",
 		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/dist/css/bootstrap.css",
 		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/bootstrap/less/bootstrap.less",
-		"/Users/abhinavgujjar/quest/parse/public/index.html",
 		"/Users/abhinavgujjar/quest/parse/public/app/partials/tabledisplay.html",
 		"/Users/abhinavgujjar/quest/parse/public/app/bower_components/angular/bower.json",
 		"/Users/abhinavgujjar/talentjam/talentjam/app/partials/logfeed.html",
@@ -780,25 +810,7 @@
 		"/E/talentjam/talentjam/app/partials/postingpublicview.html",
 		"/E/talentjam/talentjam/app/js/controllers/publicController.js",
 		"/E/talentjam/talentjam/app/js/services/jamProvider.js",
-		"/E/talentjam/talentjam/app/css/all.less",
-		"/E/talentjam/talentjam/app/template/navbar/navbar.html",
-		"/E/talentjam/talentjam/app/js/directives/navbar.js",
-		"/E/talentjam/talentjam/app/js/controllers/betaController.js",
-		"/E/talentjam/talentjam/app/partials/beta.html",
-		"/E/talentjam/talentjam/app/js/controllers/loginController.js",
-		"/E/talentjam/talentjam/app/js/app.js",
-		"/E/talentjam/talentjam/app/template/suggestions/suggestions.html",
-		"/C/Users/abhinav/AppData/Local/Temp/TortoiseGit/vieB876.tmp/viewjam_3653dec.html",
-		"/C/Users/abhinav/AppData/Local/Temp/TortoiseGit/vie75D.tmp/viewjam_7f0686b.html",
-		"/C/Users/abhinav/AppData/Local/Temp/TortoiseGit/vieBE88.tmp/viewjam_3653dec.html",
-		"/E/talentjam/talentjam/node_modules/protractor/example/chromeOnlyConf.js",
-		"/E/talentjam/talentjam/Parse/cloud/main.js",
-		"/E/talentjam/talentjam/node_modules/protractor/node_modules/selenium-webdriver/docs/enum_webdriver_logging_LevelName.html",
-		"/E/talentjam/talentjam/app/assets/components/plugins/prettyprint/assets/js/lang-go.js",
-		"/E/talentjam/talentjam/app/bower_components/bootstrap/less/list-group.less",
-		"/E/talentjam/talentjam/app/js/services.js",
-		"/E/talentjam/talentjam/app/assets/components/modules/admin/maps/vector/assets/custom/maps-vector.usa-unemployment.init.js",
-		"/E/talentjam/talentjam/app/assets/components/modules/admin/maps/vector/assets/lib/maps/jquery-jvectormap-us-aea-en.js"
+		"/E/talentjam/talentjam/app/css/all.less"
 	],
 	"find":
 	{
@@ -844,6 +856,22 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			",",
+			"add",
+			")),",
+			"readonly",
+			"fields",
+			"currentPage",
+			"retrie",
+			"isloa",
+			"var",
+			"login",
+			"checkbo",
+			"refre",
+			"selectedFile",
+			"addtag",
+			" P",
+			"removeTag",
 			"findFilesByTag",
 			"searc",
 			"loadWf",
@@ -955,23 +983,7 @@
 			"createJam",
 			"creae",
 			"createInvite",
-			"googl",
-			"tinymceOptions",
-			"calculateEndDate",
-			"emplateCa",
-			"appState",
-			"calculateEndDate",
-			"reward",
-			"addUserToChampions",
-			"startWatching",
-			"feed",
-			"Feed",
-			"feed",
-			"rewardManager",
-			"'));",
-			"ng-switch-on",
-			"parseHeaders",
-			";\n"
+			"googl"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -979,6 +991,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"P",
 			"'",
 			"assets/images/Icons",
 			"",
@@ -1085,7 +1098,7 @@
 	"project": "questtag.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1093,6 +1106,70 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"app",
+				"parse/public/app/js/app.js"
+			],
+			[
+				"goo",
+				"parse/public/app/js/googleService.js"
+			],
+			[
+				"resul",
+				"parse/public/app/partials/results.html"
+			],
+			[
+				"main",
+				"parse/public/app/js/mainController.js"
+			],
+			[
+				"login",
+				"parse/public/app/js/loginController.js"
+			],
+			[
+				"goog",
+				"parse/public/app/js/googleService.js"
+			],
+			[
+				"result",
+				"parse/public/app/partials/results.html"
+			],
+			[
+				"mai",
+				"parse/public/app/bower_components/bootstrap/less/mixins/alerts.less"
+			],
+			[
+				"inde",
+				"parse/public/app/index.html"
+			],
+			[
+				"landin",
+				"parse/public/app/partials/landing.html"
+			],
+			[
+				"res",
+				"parse/public/app/partials/results.html"
+			],
+			[
+				"index",
+				"parse/public/app/index.html"
+			],
+			[
+				"log",
+				"parse/public/app/partials/login.html"
+			],
+			[
+				"land",
+				"parse/public/app/partials/landing.html"
+			],
+			[
+				"lan",
+				"parse/public/app/partials/landing.html"
+			],
+			[
+				"lo",
+				"parse/public/app/partials/login.html"
+			],
 			[
 				"go",
 				"parse/public/app/js/googleService.js"
@@ -1110,10 +1187,6 @@
 				"cmdthenet/parse/public/scripts/gdrive.js"
 			],
 			[
-				"main",
-				"cmdthenet/parse/public/scripts/main.js"
-			],
-			[
 				"gdri",
 				"cmdthenet/parse/public/scripts/gdrive.js"
 			],
@@ -1124,10 +1197,6 @@
 			[
 				"my",
 				"parse/public/app/myModalContent.html"
-			],
-			[
-				"app",
-				"parse/public/app/js/app.js"
 			],
 			[
 				"mymo",
@@ -1146,36 +1215,16 @@
 				"parse/public/app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
 			],
 			[
-				"inde",
-				"parse/public/index.html"
-			],
-			[
 				"boo",
 				"parse/public/app/bower_components/bootstrap/dist/css/bootstrap.css"
-			],
-			[
-				"log",
-				"app/partials/login.html"
-			],
-			[
-				"goo",
-				"app/js/services/googleService.js"
 			],
 			[
 				"user",
 				"Parse/cloud/user.js"
 			],
 			[
-				"login",
-				"app/partials/login.html"
-			],
-			[
 				"logincon",
 				"app/js/controllers/loginController.js"
-			],
-			[
-				"goog",
-				"app/js/services/googService.js"
 			],
 			[
 				"mail",
@@ -1286,10 +1335,6 @@
 				"app\\js\\controllers\\homeController.js"
 			],
 			[
-				"index",
-				"app\\index.html"
-			],
-			[
 				"navbar",
 				"app\\js\\directives\\navbar.js"
 			],
@@ -1324,10 +1369,6 @@
 			[
 				"jam",
 				"Parse\\cloud\\jam.js"
-			],
-			[
-				"landin",
-				"app\\partials\\landing.html"
 			],
 			[
 				"beta",
@@ -1506,10 +1547,6 @@
 				"app\\js\\services\\jamProvider.js"
 			],
 			[
-				"land",
-				"app\\js\\controllers\\landingController.js"
-			],
-			[
 				"usersprovider",
 				"app\\js\\services\\usersProvider.js"
 			],
@@ -1580,30 +1617,6 @@
 			[
 				"indecx",
 				"node_modules\\bower\\node_modules\\cardinal\\node_modules\\redeyed\\examples\\browser\\index.css"
-			],
-			[
-				"jmabo",
-				"app\\partials\\jamboard.html"
-			],
-			[
-				"jamcontro",
-				"app\\js\\controllers\\jamcontroller.js"
-			],
-			[
-				"connec",
-				"app\\partials\\modals\\connection.html"
-			],
-			[
-				"invitep",
-				"app\\js\\services\\invitesProvider.js"
-			],
-			[
-				"logf",
-				"app\\partials\\logfeed.html"
-			],
-			[
-				"invit",
-				"app\\partials\\modals\\invite.html"
 			]
 		],
 		"width": 0.0
