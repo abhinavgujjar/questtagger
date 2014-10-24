@@ -41,7 +41,10 @@
 						<td>
 							<img ng-src="{{item.iconLink}}"></td>
 						<td>
-							<a ng-href="{{item.defaultOpenWithLink || item.alternateLink}}" target="_blank" >{{item.title}}</a>
+							<div>
+							<div><a ng-href="{{item.defaultOpenWithLink || item.alternateLink}}" target="_blank" >{{item.title}}</a></div>
+							<div><span class="text-muted small" ng-repeat="parent in item.parents">/{{parent.title}}</span></div>
+							</div>
 						</td>
 						<td>
 							<span ng-repeat="owner in item.owners ">
@@ -61,13 +64,12 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-3  well" ng-show="selectedFiles.length >
-			0">
+		<div class="col-md-3 well" ng-show="selectedFiles.length > 0">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<span ng-repeat="tag in activeTags" style="display:inline-block">
+					<span class="text-sm text-muted">Tags Present</span>
+					<br/>
+						<span ng-repeat="tag in activeTags" style="display:inline-block">
 								<span class="label label-success">
 
 									<a href="" class="text-warning" ng-click="removeTag(tag)">
@@ -76,9 +78,8 @@
 									&nbsp;&nbsp;{{tag}}
 								</span>
 							</span>
-
-						</div>
-					</div>
+					<br/>
+					<br/>
 					<span class="text-sm text-muted">Node</span>
 					<br/>
 						<span ng-repeat="tag in availableTags"  style="display:inline-block">
@@ -110,7 +111,6 @@
 						</span>
 					</div>
 					<br/>
-					<br/>
 					<span class="text-small text-muted">Function</span>
 					<br/>
 					<div>
@@ -125,6 +125,12 @@
 							</span>
 
 						</span>
+					</div>
+					<br/>
+					<span class="text-small text-muted">Custom</span>
+					<br/>
+					<div class="form-inline">
+						<input type="text" class="form-control input-sm" ng-model="customTag" /><button class="btn btn-sm btn-primary" ng-click="addTag(customTag)">add</button>
 					</div>
 
 				</div>
