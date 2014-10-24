@@ -7,13 +7,13 @@
 
 			<div class="well well-sm">
 				<span >By Tag:</span>
-				<div class="pull-left" style="{margin-right:5px}" ng-repeat="fTag in filterTags">
+				<span style="{margin-right:5px}" ng-repeat="fTag in filterTags">
 					<span class="label label-success">{{fTag.key}}</span>
 					<span>
 						<button type="button" class="btn btn-xs" ng-click="removeFilter(fTag)">x</button>
 					</span>
 					&nbsp;
-				</div>
+				</span>
 			</div>
 		</div>
 	</div>
@@ -35,9 +35,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags) | offset : (page - 1) * itemsPerPage | limitTo : itemsPerPage" ng-class="{superactive: checkedFiles[item.id]}">
+					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags) | offset : (page - 1) * itemsPerPage | limitTo : itemsPerPage" ng-class="{superactive: selectedFiles.indexOf(item)>-1}">
 						<td>
-							<input ng-show="item.editable" type="checkbox" ng-model="checkedFiles[item.id]" ng-change="toggleFile(item)"></td>
+							<input ng-show="item.editable" type="checkbox" ng-model="item.checked" ng-checked="selectedFiles.indexOf(item)>-1" ng-change="toggleFile(item)" /></td>
 						<td>
 							<img ng-src="{{item.iconLink}}"></td>
 						<td>
@@ -65,6 +65,8 @@
 			</table>
 		</div>
 		<div class="col-md-3 well" ng-show="selectedFiles.length > 0">
+			<div class="text-right"><button class="btn btn-xs btn-success" ng-click="doneTagging()">Done Tagging</button></div>
+			<br/>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<span class="text-sm text-muted">Tags Present</span>

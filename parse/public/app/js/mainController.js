@@ -16,6 +16,15 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 	$scope.checkedFiles = {}
 
 
+	$scope.doneTagging = function(){
+		_.each($scope.selectedFiles, function(file){
+			file.checked = false;
+		})
+
+		$scope.selectedFiles = [];
+
+
+	};
 
 	$scope.pageChanged = function() {
 		console.log('Page changed to: ' + $scope.page);
