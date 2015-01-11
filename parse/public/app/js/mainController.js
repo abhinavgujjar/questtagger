@@ -208,9 +208,8 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 
 		}).then(function(items) {
 
-			var folders = manageFolders(items);
-
-			$scope.files = items;
+			
+			$scope.files = manageFolders(items);;
 
 			$scope.isLoading = false;
 
@@ -225,9 +224,15 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 	var folders = {};
 
 	function manageFolders(allFiles){
+
+		var files = [];
+
 		_.each(allFiles, function(item){
 			if (item.mimeType == 'application/vnd.google-apps.folder'){
 				folders[item.id] = item.title;
+			} else
+			{
+				files.push(item);
 			}
 		})
 
@@ -237,7 +242,7 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 			})
 		})
 
-		return folders;
+		return files;
 	}
 
 	$scope.filterByTag = function(filterTags) {

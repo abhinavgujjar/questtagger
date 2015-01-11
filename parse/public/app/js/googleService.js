@@ -68,6 +68,7 @@ provides: [facebook]
 
                 var initialRequest = gapi.client.drive.files.list({
                     fields: fields,
+                    // corpus : 'DOMAIN',
                     //q : "mimeType != 'application/vnd.google-apps.folder'",
                     maxResults: 500
                 });
