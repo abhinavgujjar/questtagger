@@ -18,7 +18,7 @@ provides: [facebook]
     /*global gapi */
     'use strict';
 
-    var fields = "items(description,editable,iconLink,id, mimeType, properties,title,defaultOpenWithLink,alternateLink, parents(id,isRoot,kind), owners(displayName,picture)),nextPageToken";
+    var fields = "items(description,editable,iconLink,id, mimeType, properties,title,defaultOpenWithLink,alternateLink, parents(id,isRoot,kind), owners(displayName,picture), userPermission),  nextPageToken";
 
     var clientId = '335394801683-p18s56v2q0ghp25m1tbk2s3iagicog84.apps.googleusercontent.com';
     //var clientId = '335394801683-tnb7f91o5mv6puetisr9fimvppo24l2u.apps.googleusercontent.com';

@@ -15,6 +15,7 @@ app.controller('maincontroller', function($scope, goog, $sce, $q, $modal, wfserv
 
 	$scope.checkedFiles = {}
 
+	$scope.owner = 'all';
 
 	$scope.doneTagging = function(){
 		_.each($scope.selectedFiles, function(file){

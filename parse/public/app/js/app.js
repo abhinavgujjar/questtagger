@@ -11,6 +11,7 @@ var app = angular.module('quest', ['tjGoog',
 	'ngResource',
 	'ui.bootstrap.modal',
 	'ui.bootstrap.pagination',
+	'ui.bootstrap.buttons',
 	'ui.router',
 	'ngAnimate'
 ]);
@@ -38,8 +39,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 app.filter('offset', function() {
-  return function(input, start) {
-    start = parseInt(start, 10);
-    return input.slice(start);
-  };
+	return function(input, start) {
+		start = parseInt(start, 10);
+		return input.slice(start);
+	};
+});
+
+app.filter('byOwner', function() {
+	return function(input, owner) {
+
+		var filtered = input;
+
+		if (owner === 'mine') {
+
+			filtered = _.filter(input, function(item) {
+
+				return item.userPermission.role === 'owner';
+			});
+
+		}
+		return filtered;
+
+
+	};
 });

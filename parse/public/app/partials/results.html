@@ -2,9 +2,15 @@
 	<br/>
 	<div class="row" >
 		<div class="col-md-3">
-			<input type="text" class="form-control input-sm" ng-model="searchTerm" placeholder="search by name"></div>
-		<div class="col-md-6">
-
+			<input type="text" class="form-control input-sm" ng-model="searchTerm" placeholder="search by name" />
+		</div>
+		<div class="col-md-2">
+			<div class="btn-group">
+				<label class="btn btn-primary btn-sm" ng-model="owner" btn-radio="'all'">All</label>
+				<label class="btn btn-primary btn-sm" ng-model="owner" btn-radio="'mine'">Only Mine</label>
+			</div>
+		</div>
+		<div class="col-md-7">
 			<div class="well well-sm">
 				<span >By Tag:</span>
 				<span style="{margin-right:5px}" ng-repeat="fTag in filterTags">
@@ -21,7 +27,7 @@
 		<div  ng-class="{'col-md-9' : selectedFiles.length >
 			0, 'col-md-12' : selectedFiles.length === 0 }">
 			<div class="row text-center">
-				<pagination total-items="(files | filter : { title : searchTerm } | filter : filterByTag(filterTags)).length" items-per-page="itemsPerPage" class="pagination-sm"  max-size="10" ng-model="page" ng-change="pageChanged()"></pagination>
+				<pagination total-items="(files | byOwner : owner | filter : { title : searchTerm } | filter : filterByTag(filterTags)).length" items-per-page="itemsPerPage" class="pagination-sm"  max-size="10" ng-model="page" ng-change="pageChanged()"></pagination>
 			</div>
 
 			<table class="table">
@@ -35,15 +41,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in files | filter : { title : searchTerm } | filter : filterByTag(filterTags) | offset : (page - 1) * itemsPerPage | limitTo : itemsPerPage" ng-class="{superactive: selectedFiles.indexOf(item)>-1}">
+					<tr ng-repeat="item in files |  byOwner : owner | filter : { title : searchTerm } | filter : filterByTag(filterTags) | offset : (page - 1) * itemsPerPage | limitTo : itemsPerPage" ng-class="{superactive: selectedFiles.indexOf(item)>
+						-1}">
 						<td>
 							<input ng-show="item.editable" type="checkbox" ng-model="item.checked" ng-checked="selectedFiles.indexOf(item)>-1" ng-change="toggleFile(item)" /></td>
 						<td>
 							<img ng-src="{{item.iconLink}}"></td>
 						<td>
 							<div>
-							<div><a ng-href="{{item.defaultOpenWithLink || item.alternateLink}}" target="_blank" >{{item.title}}</a></div>
-							<div><span class="text-muted small" ng-repeat="parent in item.parents">/{{parent.title}}</span></div>
+								<div>
+									<a ng-href="{{item.defaultOpenWithLink || item.alternateLink}}" target="_blank" >{{item.title}}</a>
+								</div>
+								<div>
+									<span class="text-muted small" ng-repeat="parent in item.parents">/{{parent.title}}</span>
+								</div>
 							</div>
 						</td>
 						<td>
@@ -64,37 +75,40 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-3 well" ng-show="selectedFiles.length > 0">
-			<div class="text-right"><button class="btn btn-xs btn-success" ng-click="doneTagging()">Done Tagging</button></div>
+		<div class="col-md-3 well" ng-show="selectedFiles.length >
+			0">
+			<div class="text-right">
+				<button class="btn btn-xs btn-success" ng-click="doneTagging()">Done Tagging</button>
+			</div>
 			<br/>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<span class="text-sm text-muted">Tags Present</span>
 					<br/>
-						<span ng-repeat="tag in activeTags" style="display:inline-block">
-								<span class="label label-success">
+					<span ng-repeat="tag in activeTags" style="display:inline-block">
+						<span class="label label-success">
 
-									<a href="" class="text-warning" ng-click="removeTag(tag)">
-										<span class="glyphicon glyphicon-remove glyphicon-white"></span>
-									</a>
-									&nbsp;&nbsp;{{tag}}
-								</span>
-							</span>
+							<a href="" class="text-warning" ng-click="removeTag(tag)">
+								<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+							</a>
+							&nbsp;&nbsp;{{tag}}
+						</span>
+					</span>
 					<br/>
 					<br/>
 					<span class="text-sm text-muted">Node</span>
 					<br/>
-						<span ng-repeat="tag in availableTags"  style="display:inline-block">
+					<span ng-repeat="tag in availableTags"  style="display:inline-block">
 
-							<span class="label label-default">
+						<span class="label label-default">
 
-								<a href="" class="text-warning" ng-click="addTag(tag)">
-									<span class="glyphicon glyphicon-plus glyphicon-white"></span>
-								</a>
-								&nbsp;&nbsp;{{tag}}
-							</span>
-
+							<a href="" class="text-warning" ng-click="addTag(tag)">
+								<span class="glyphicon glyphicon-plus glyphicon-white"></span>
+							</a>
+							&nbsp;&nbsp;{{tag}}
 						</span>
+
+					</span>
 					<br/>
 					<br/>
 					<span class="text-small text-muted">Project</span>
@@ -132,7 +146,8 @@
 					<span class="text-small text-muted">Custom</span>
 					<br/>
 					<div class="form-inline">
-						<input type="text" class="form-control input-sm" ng-model="customTag" /><button class="btn btn-sm btn-primary" ng-click="addTag(customTag)">add</button>
+						<input type="text" class="form-control input-sm" ng-model="customTag" />
+						<button class="btn btn-sm btn-primary" ng-click="addTag(customTag)">add</button>
 					</div>
 
 				</div>
